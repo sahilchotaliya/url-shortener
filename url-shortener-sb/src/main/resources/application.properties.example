@@ -1,0 +1,25 @@
+# Database Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/url_shortener
+spring.datasource.username=your_database_username
+spring.datasource.password=your_database_password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# JWT Configuration
+jwt.secret=your_jwt_secret_here
+jwt.expiration=86400000
+
+# Server Configuration
+server.port=8080
+server.servlet.context-path=/
+
+# Logging Configuration
+logging.level.root=INFO
+logging.level.com.url.shortener=DEBUG
+
+# Security Configuration
+spring.security.filter.order=10
+spring.security.user.name=admin
+spring.security.user.password=your_admin_password
+
+# Note: Never commit your actual application.properties with real values 
