@@ -9,14 +9,38 @@ A full-stack URL shortener application with React frontend and Spring Boot backe
 
 ## Setup Instructions
 
-### Prerequisites
+### Option 1: Using Docker (Recommended)
+
+The easiest way to run the application is using Docker:
+
+1. Make sure you have [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+
+2. Create your environment file:
+   ```
+   cp .env.docker .env
+   ```
+
+3. Edit the `.env` file with your configuration values.
+
+4. Build and start the application:
+   ```
+   docker-compose up -d
+   ```
+
+5. Access the application at http://localhost
+
+For more detailed Docker instructions, see [DOCKER.md](DOCKER.md).
+
+### Option 2: Manual Setup
+
+#### Prerequisites
 
 - Node.js (v16+)
 - Java 17+
 - MySQL or PostgreSQL database
 - Maven
 
-### Backend Setup
+#### Backend Setup
 
 1. Navigate to the backend directory:
    ```
@@ -35,7 +59,7 @@ A full-stack URL shortener application with React frontend and Spring Boot backe
    ./mvnw spring-boot:run
    ```
 
-### Frontend Setup
+#### Frontend Setup
 
 1. Navigate to the frontend directory:
    ```

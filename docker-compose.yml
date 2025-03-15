@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Backend Spring Boot service
+  backend:
+    build:
+      context: ./url-shortener-sb
+      dockerfile: Dockerfile
+    container_name: url-shortener-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION}
+    depends_on:
+      - db
+    networks:
+      - url-shortener-network
+
+  # Frontend React service
+  frontend:
+    build:
+      context: ./url-shortener-react
+      dockerfile: Dockerfile
+    container_name: url-shortener-frontend
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - VITE_BACKEND_URL=${VITE_BACKEND_URL}
+      - VITE_REACT_FRONT_END_URL=${VITE_REACT_FRONT_END_URL}
+      - VITE_REACT_SUBDOMAIN=${VITE_REACT_SUBDOMAIN}
+      - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID}
+    depends_on:
+      - backend
+    networks:
+      - url-shortener-network
+
+  # MySQL Database service
+  db:
+    image: mysql:8.0
+    container_name: url-shortener-db
+    restart: always
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - url-shortener-network
+
+networks:
+  url-shortener-network:
+    driver: bridge
+
+volumes:
+  mysql-data: 

@@ -63,11 +63,14 @@ public class JwtUtils {
                     .build().parseSignedClaims(authToken);
             return true;
         } catch (JwtException e) {
-            throw new RuntimeException(e);
+            System.err.println("Invalid JWT token: " + e.getMessage());
+            return false;
         } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
+            System.err.println("JWT claims string is empty: " + e.getMessage());
+            return false;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.err.println("JWT validation error: " + e.getMessage());
+            return false;
         }
     }
 }
